@@ -6,39 +6,39 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
+  Req,
+  NotFoundException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { LinkItemDto } from './dto/create-link-user.dto';
-import { UpdateLinkDto } from './dto/updata-link.user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerOptions from 'config/multer.config';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  createUser(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
 
-  @Post(':id/link')
-  async createLink(@Param('id') id: string, @Body() createLink: LinkItemDto) {
-    return await this.userService.createLink(id, createLink);
-  }
+  /// Picture
 
-  @Patch(':userId/link/:linkId/edit')
-  async updateLink(
-    @Param('userId') userId: string,
-    @Param('linkId') linkId: string,
-    @Body() updateLinkDto: UpdateLinkDto,
-  ) {
-    return this.userService.updateLink(userId, linkId, updateLinkDto);
-  }
-
-  @Delete(':userId/link/:linkId/delete')
-  async deleteLink(@Param('userId') userId: string , @Param('linkId') linkId:string){
-    return this.userService.deleteLink(userId,linkId)
+  @Patch(':id/upload')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async editpicture(@Param('id') id:string, @UploadedFile() file: Express.Multer.File){
+    const updatedUser = await this.userService.update(id,{ image: file.path })
+    if (!updatedUser) {
+      throw new NotFoundException('User not found');
+    }
+    return {
+      message: 'Upload success!',
+      updatedUser,
+    };
   }
 
   @Get()
@@ -61,3 +61,24 @@ export class UserController {
     return this.userService.remove(id);
   }
 }
+
+
+  // @Post(':id/upload')
+  // @UseInterceptors(FileInterceptor('file', multerOptions))
+  // async uploadpicture(
+  //   @Param('id') id: string,
+  //   @UploadedFile() file: Express.Multer.File
+  // ) {
+
+  //   const user = await this.userService.findOne(id);
+  //   if (!user) throw new Error('User not found');
+    
+  //   user.image = file.path;
+
+  //   await user.save();
+
+  //   return {
+  //     message: 'Upload success!',
+  //     user,
+  //   };
+  // }

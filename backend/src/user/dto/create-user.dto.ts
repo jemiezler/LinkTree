@@ -7,10 +7,10 @@ export class CreateUserDto {
     username:String
 
     @IsString()
+    @IsNotEmpty()
     role:string
 
     @IsString()
     image:string
 
-    
 }
