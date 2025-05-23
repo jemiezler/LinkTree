@@ -16,18 +16,22 @@ export class UserService {
   }
 
   findAll() {
-    return this.UserModel.find().exec()
+    return this.UserModel.find().populate('links').exec();
   }
 
+  async findUserWithLinks(userId: string) {
+    return this.UserModel.findById(userId).populate('links').exec();
+  }
+  
   findOne(id: string) {
-    return this.UserModel.findById(id).exec()
+    return this.UserModel.findById(id).exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    return this.UserModel.findByIdAndUpdate(id, updateUserDto)
+    return this.UserModel.findByIdAndUpdate(id, updateUserDto);
   }
 
   remove(id: string) {
-    return this.UserModel.findByIdAndDelete(id)
+    return this.UserModel.findByIdAndDelete(id);
   }
 }

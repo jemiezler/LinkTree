@@ -3,7 +3,7 @@ import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Link, Linkdocument } from './schema/link.entity';
+import { Link, Linkdocument } from './schema/link.schema';
 
 @Injectable()
 export class LinkService {

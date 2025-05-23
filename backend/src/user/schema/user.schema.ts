@@ -14,3 +14,16 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+UserSchema.virtual('links', {
+  ref: 'Link',               // ชื่อ model ที่จะอ้างอิง
+  localField: '_id',         // ฟิลด์ใน User
+  foreignField: 'user',      // ฟิลด์ใน Link ที่อ้างอิง User
+});UserSchema.virtual('links', {
+  ref: 'Link',
+  localField: '_id',
+  foreignField: 'user',
+});
+UserSchema.set('toJSON', { virtuals: true });
+UserSchema.set('toObject', { virtuals: true });
+
+

@@ -22,16 +22,30 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async create(
+    @Body() createUserDto: CreateUserDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const baseUrl = `http://localhost:3001/upload`;
+
+    const userWithImage = await this.userService.createUser({
+      ...createUserDto,
+      image: `${baseUrl}/${file.filename}`, // ✅ เก็บแบบเต็ม URL ไปเลย
+    });
+
+    return userWithImage;
   }
 
   /// Picture
 
   @Patch(':id/upload')
   @UseInterceptors(FileInterceptor('file', multerOptions))
-  async editpicture(@Param('id') id:string, @UploadedFile() file: Express.Multer.File){
-    const updatedUser = await this.userService.update(id,{ image: file.path })
+  async editpicture(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const updatedUser = await this.userService.update(id, { image: file.path });
     if (!updatedUser) {
       throw new NotFoundException('User not found');
     }
@@ -46,9 +60,24 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  @Get(':id/link')
+  async getUserWithLinks(@Param('id') id: string) {
+    const user = await this.userService.findUserWithLinks(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // format output
+    return {
+      name: user.username,
+      role: user.role,
+      image: user.image,
+      link: Array.from(user.links).map((l: any) => ({
+        name: l.name,
+        link: l.link,
+      })),
+    };
   }
 
   @Patch(':id')
@@ -62,23 +91,22 @@ export class UserController {
   }
 }
 
+// @Post(':id/upload')
+// @UseInterceptors(FileInterceptor('file', multerOptions))
+// async uploadpicture(
+//   @Param('id') id: string,
+//   @UploadedFile() file: Express.Multer.File
+// ) {
 
-  // @Post(':id/upload')
-  // @UseInterceptors(FileInterceptor('file', multerOptions))
-  // async uploadpicture(
-  //   @Param('id') id: string,
-  //   @UploadedFile() file: Express.Multer.File
-  // ) {
+//   const user = await this.userService.findOne(id);
+//   if (!user) throw new Error('User not found');
 
-  //   const user = await this.userService.findOne(id);
-  //   if (!user) throw new Error('User not found');
-    
-  //   user.image = file.path;
+//   user.image = file.path;
 
-  //   await user.save();
+//   await user.save();
 
-  //   return {
-  //     message: 'Upload success!',
-  //     user,
-  //   };
-  // }
+//   return {
+//     message: 'Upload success!',
+//     user,
+//   };
+// }
