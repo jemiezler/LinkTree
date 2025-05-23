@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsMongoId, IsArray , IsString } from "class-validator";
+import { Types } from "mongoose";
 
 export class CreateUserDto {
 

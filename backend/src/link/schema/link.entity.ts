@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 
 export type Linkdocument = Link & Document
@@ -10,7 +10,7 @@ export class Link {
     name:string
     @Prop({required:true})
     link:string
-    @Prop({ type: Types.ObjectId, ref:'User'})
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref:'User'})
     user: Types.ObjectId
 }
 

@@ -11,8 +11,6 @@ export class User {
   image: string;
   @Prop({ required:true})
   role: string;
-  @Prop({ type: Types.ObjectId, ref:'Link'})
-  link: Types.ObjectId
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

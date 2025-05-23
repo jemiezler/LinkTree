@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Link, Linkdocument } from './schema/link.entity';
 
 @Injectable()
@@ -20,6 +20,15 @@ export class LinkService {
 
   findOne(id: string) {
     return this.LinkModel.findById(id)
+  }
+
+  async findAllByName(userId: string) {
+  const links = await this.LinkModel.find({ user: new Types.ObjectId(userId) })
+    .populate('user')
+    .exec();
+
+  console.log('Links:', links);
+  return links;
   }
 
   update(id: string, updateLinkDto: UpdateLinkDto) {

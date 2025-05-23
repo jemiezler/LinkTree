@@ -22,6 +22,11 @@ export class LinkController {
     return this.linkService.findOne(id);
   }
 
+  @Get(':userId/user')
+  findAllByUser(@Param('userId') userId:string){
+    return this.linkService.findAllByName(userId)
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto) {
     return this.linkService.update(id, updateLinkDto);

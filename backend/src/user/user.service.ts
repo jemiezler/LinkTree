@@ -16,11 +16,11 @@ export class UserService {
   }
 
   findAll() {
-    return this.UserModel.find().populate('link').exec()
+    return this.UserModel.find().exec()
   }
 
   findOne(id: string) {
-    return this.UserModel.findById(id).populate('link').exec()
+    return this.UserModel.findById(id).exec()
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
