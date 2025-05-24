@@ -99,8 +99,7 @@ export default function Home() {
                 </div>
               </div>
             );
-          })
-          }
+          })}
         </div>
 
         <footer className="flex justify-center bottom-0 items-end py-3">
