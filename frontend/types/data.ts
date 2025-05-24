@@ -1,4 +1,5 @@
 type Link = {
+  _id: string;
   name: string;
   link: string;
 };
