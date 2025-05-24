@@ -9,6 +9,14 @@ const config = {
   ],
   theme: {
     extend: {
+      light: {
+        layout: {},
+        color: {}
+      },
+      black: {
+        layout:{},
+        color:{}
+      },
       fontFamily: {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
