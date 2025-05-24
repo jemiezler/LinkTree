@@ -18,7 +18,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3001/user/68302720fb7bed40c0d57cbe/link")
+    fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link")
       .then((res) => res.json())
       .then((data) => setUser(data))
       .catch((err) => console.error("Error fetching users:", err));
