@@ -22,16 +22,16 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file', multerOptions))
+  @UseInterceptors(FileInterceptor('image', multerOptions))
   async create(
     @Body() createUserDto: CreateUserDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ) {
     const baseUrl = `http://localhost:3001/upload`;
 
     const userWithImage = await this.userService.createUser({
       ...createUserDto,
-      image: `${baseUrl}/${file.filename}`, // ✅ เก็บแบบเต็ม URL ไปเลย
+      image: `${baseUrl}/${image.filename}`,
     });
 
     return userWithImage;

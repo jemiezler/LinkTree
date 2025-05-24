@@ -9,6 +9,8 @@ export class User {
   username: string;
   @Prop({})
   image: string;
+  @Prop({})
+  imagebg: string;
   @Prop({ required:true})
   role: string;
 }

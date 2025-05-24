@@ -15,7 +15,7 @@ export default function RootLayout({
       <body
         className={clsx(
           fontSans.variable,
-          "h-screen bg-background bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat bg-fixed font-sans antialiased",
+          "flex justify-center items-center bg-background bg-[url('/bg.png')] bg-center bg-fixed font-sans antialiased ",
         )}
       >
         {children}
