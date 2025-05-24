@@ -85,12 +85,12 @@ export default function Home() {
                       variant="ghost"
                       className={`flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 ${themes ? " border-2 border-black" : "border-2 border-white"}   hover:shadow-md transition duration-200 w-full h-full`}>
                       <span
-                        className={`hidden lg:block text-4xl ${themes ? "text-black" : "text-white"}`}
+                        className={` text-4xl absolute left-3 top-3  flex justify-center items-center  lg:static lg:left-auto lg:top-auto lg:translate-x-0  ${themes ? "text-black" : "text-white"}`}
                       >
                         {icon}
                       </span>
                       <span
-                        className={`text-xl font-normal ${themes ? "text-black" : "text-white"}`}
+                        className={`text-xl font-normal justify-center items-center ${themes ? "text-black" : "text-white"}`}
                       >
                         {link.name}
                       </span>
