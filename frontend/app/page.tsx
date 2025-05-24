@@ -24,33 +24,50 @@ export default function Home() {
       .catch((err) => console.error("Error fetching users:", err));
   }, []);
 
-  console.log(user);
-
+  const [themes, setThemes] = useState(false);
+  console.log(themes);
   return (
-    <div className="flex justify-center items-center ">
-      <div className="flex flex-col items-center  md:w-[400px] bg-[#0B0B0B] shadow-lg h-full my-10 mx-10 rounded-[20px]">
-        <div className="relative w-full h-[40%] bg-slate-400 flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
+    <div className="flex justify-center items-center">
+      <div
+        className={`flex flex-col items-center md:w-[400px] border-4 
+  ${themes ? "bg-white text-black border-slate-300 shadow-2xl shadow-slate-400/40" 
+            : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"} 
+  h-full my-10 mx-10 rounded-[20px]`}
+      >
+        <div className="relative w-full h-[40%] flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
           <img src={user.image} className="w-full h-full object-cover" />
-
-          <div className="absolute flex flex-col  w-fit h-fit top-4 right-4  gap-4 justify-center items-center">
-            <Button
-              isIconOnly
-              aria-label="Themes"
-              variant="solid"
-              className="flex w-[50px] h-[50px] bg-white rounded-full"
-            >
-              <span>
-                <FaMoon size={32} />
-              </span>
-            </Button>
-          </div>
-
-          <div className="absolute top-2  w-full h-full bg-gradient-custom">
+          <div
+            className={`absolute top-2  w-full h-full ${themes ? "bg-gradient-while" : "bg-gradient-dark"}`}
+          >
             <div className="flex flex-col justify-end items-center text-black w-full h-full py-5">
-              <h1 className="font-sans text-3xl font-bold text-white">
+              <h1
+                className={`font-sans text-3xl font-bold ${themes ? "text-black" : "text-white"}`}
+              >
                 {user.name}
               </h1>
-              <p className="text-2xl font-normal text-white">{user.role}</p>
+              <p
+                className={`text-2xl font-normal ${themes ? "text-black" : "text-white"}`}
+              >
+                {user.role}
+              </p>
+            </div>
+            <div className="absolute flex flex-col  w-fit h-fit top-2 right-4  gap-4 justify-center items-center">
+              <Button
+                isIconOnly
+                aria-label="Themes"
+                variant="solid"
+                className={`flex w-[50px] h-[50px] ${themes ? "bg-white" : "bg-black"} rounded-full`}
+                onPress={() => {
+                  console.log("onPress! themes before:", themes);
+                  setThemes(!themes);
+                }}
+              >
+                {themes ? (
+                  <FaMoon size={32} color="black" />
+                ) : (
+                  <IoSunny size={32} color="white" />
+                )}
+              </Button>
             </div>
           </div>
         </div>
@@ -58,21 +75,23 @@ export default function Home() {
         {/* <div className="w-[325px] max-h-[300px] mx-auto grid grid-cols-2 gap-8 my-5 overflow-y-scroll scrollbar-hide"> */}
         <div className="w-[325px] mx-auto grid lg:grid-cols-2 grid-col gap-8 my-5  ">
           {user.link.map((link, index) => {
-            // Make sure getBrandVisual is defined or imported above this component
             const { icon, gradient } = getBrandVisual(link.link);
             return (
               <div key={index}>
-                <div className="bg-black rounded-xl mx-5 lg:mx-0">
+                <div className={`${themes ? "bg-white" : "bg-black"} rounded-xl mx-5 lg:mx-0`}>
                   <a href={link.link} target="_blank" rel="noopener noreferrer">
                     <Button
                       href={link.link}
                       variant="ghost"
-                      className="flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 border-2 hover:shadow-md transition duration-200 w-full h-full bg-transparent"
-                    >
-                      <span className="hidden lg:block text-4xl text-white">
+                      className={`flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 ${themes ? " border-2 border-black" : "border-2 border-white"}   hover:shadow-md transition duration-200 w-full h-full`}>
+                      <span
+                        className={`hidden lg:block text-4xl ${themes ? "text-black" : "text-white"}`}
+                      >
                         {icon}
                       </span>
-                      <span className="text-xl font-normal text-white pt-1 lg:pt-2">
+                      <span
+                        className={`text-xl font-normal ${themes ? "text-black" : "text-white"}`}
+                      >
                         {link.name}
                       </span>
                     </Button>
@@ -84,7 +103,9 @@ export default function Home() {
         </div>
 
         <footer className="flex justify-center bottom-0 items-end py-3">
-          <h1 className=" font-sans text-xl font-bold pb-5 text-white">
+          <h1
+            className={`font-sans text-xl font-bold pb-5 ${themes ? "text-black" : "text-white"}`}
+          >
             HLLC 2025
           </h1>
         </footer>

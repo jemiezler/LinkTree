@@ -37,23 +37,8 @@ export class UserController {
     return userWithImage;
   }
 
-  /// Picture
 
-  @Patch(':id/upload')
-  @UseInterceptors(FileInterceptor('file', multerOptions))
-  async editpicture(
-    @Param('id') id: string,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    const updatedUser = await this.userService.update(id, { image: file.path });
-    if (!updatedUser) {
-      throw new NotFoundException('User not found');
-    }
-    return {
-      message: 'Upload success!',
-      updatedUser,
-    };
-  }
+  // Removed duplicate uploadpicture method to resolve duplicate function implementation error.
 
   @Get()
   findAll() {
@@ -86,28 +71,33 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @Patch(':id/upload')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async uploadpicture(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const user = await this.userService.findOne(id);
+
+    if (!user) throw new NotFoundException('User not found');
+
+    const baseUrl = `http://localhost:3001/upload`;
+
+    user.image = `${baseUrl}/${file.filename}`;
+
+    await user.save();
+
+    return {
+      message: 'Upload success!',
+      user: {
+        id: user.id,
+        image: user.image,
+      },
+    };
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
 }
-
-// @Post(':id/upload')
-// @UseInterceptors(FileInterceptor('file', multerOptions))
-// async uploadpicture(
-//   @Param('id') id: string,
-//   @UploadedFile() file: Express.Multer.File
-// ) {
-
-//   const user = await this.userService.findOne(id);
-//   if (!user) throw new Error('User not found');
-
-//   user.image = file.path;
-
-//   await user.save();
-
-//   return {
-//     message: 'Upload success!',
-//     user,
-//   };
-// }
