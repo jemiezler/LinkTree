@@ -9,10 +9,7 @@ export default function RootLayout({
 }) {
   return (
       <div
-<<<<<<< HEAD
-=======
         suppressHydrationWarning
->>>>>>> origin/edit
         className={clsx(
           fontSans.variable,
           "min-h-screen w-full bg-background bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat bg-fixed font-sans antialiased"
