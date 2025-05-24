@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -15,6 +15,21 @@ export default function UploadProfilePictureModal() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+    const [user, setUser] = useState<User>({
+      name: "",
+      role: "",
+      image: "",
+      link: [],
+    });
+
+  useEffect(() => {
+    fetch("http://localhost:3001/user/68302720fb7bed40c0d57cbe/link")
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data), console.log(data);
+      })
+      .catch((err) => console.error("Error fetching users:", err));
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -61,7 +76,9 @@ export default function UploadProfilePictureModal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">Upload Profile Picture</Button>
+      <Button onPress={onOpen} color="primary">
+        Upload Profile Picture
+      </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="md">
         <ModalContent>
           <>

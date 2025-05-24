@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { LinkService } from './link.service';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
@@ -23,8 +31,8 @@ export class LinkController {
   }
 
   @Get(':userId/user')
-  findAllByUser(@Param('userId') userId:string){
-    return this.linkService.findAllByName(userId)
+  findAllByUser(@Param('userId') userId: string) {
+    return this.linkService.findAllByName(userId);
   }
 
   @Patch(':id')
@@ -36,4 +44,10 @@ export class LinkController {
   remove(@Param('id') id: string) {
     return this.linkService.remove(id);
   }
+
+  @Delete()
+  removeMany(@Body() body: { linkIds: string[] }) {
+    return this.linkService.removemany(body.linkIds);
+  }
+  
 }

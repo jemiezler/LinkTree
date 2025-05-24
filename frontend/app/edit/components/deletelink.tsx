@@ -35,7 +35,7 @@ export default function Deletelink() {
   }, [selectedKeys, user.link]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link")
+    fetch("http://localhost:3001/user/68302720fb7bed40c0d57cbe/link")
       .then((res) => res.json())
       .then((data) => {setUser(data), console.log(data)})
       .catch((err) => console.error("Error fetching users:", err))
