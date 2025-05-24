@@ -8,9 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <head />
-      <body
+      <div
         suppressHydrationWarning
         className={clsx(
           fontSans.variable,
@@ -20,7 +18,6 @@ export default function RootLayout({
         <div className="w-full min-h-screen flex items-center justify-center p-4">
           {children}
         </div>
-      </body>
-    </html>
+      </div>
   );
 }

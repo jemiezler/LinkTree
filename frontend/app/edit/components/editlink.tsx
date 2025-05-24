@@ -10,13 +10,14 @@ import {
   Listbox,
   ListboxItem,
   Input,
+  Form,
 } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 
 export default function Editlink() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedKeys, setSelectedKeys] = React.useState<Set<string>>(new Set());
-  const [isEditModalOpen, setEditModalOpen] = React.useState(false);
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [editName, setEditName] = useState('');
   const [editLink, setEditLink] = useState('');
 
@@ -27,11 +28,18 @@ export default function Editlink() {
     link: [],
   });
 
+  const fetchUser = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link");
+      const data = await res.json();
+      setUser(data);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link")
-      .then((res) => res.json())
-      .then((data) => setUser(data))
-      .catch((err) => console.error("Error fetching users:", err));
+    fetchUser();
   }, []);
 
   const selectedValue = React.useMemo(() => {
@@ -45,15 +53,19 @@ export default function Editlink() {
 
   const handleEdit = () => {
     if (selectedKeys.size === 0) return;
+    const selected = user.link.find((link) => link._id === selectedValue);
+    if (selected) {
+      setEditName(selected.name || "");
+      setEditLink(selected.link || "");
+    }
     setEditModalOpen(true);
   };
 
   const handleEditModalClose = async () => {
-
     const data = {
       name: editName,
       link: editLink,
-    }
+    };
 
     try {
       const res = await fetch(`http://localhost:3001/link/${selectedValue}`, {
@@ -68,15 +80,15 @@ export default function Editlink() {
 
       const result = await res.json();
       alert(`Success: ${result.message}`);
+
+      await fetchUser();
     } catch (error: any) {
       alert(`Error: ${error.message}`);
     }
 
     setEditModalOpen(false);
     setSelectedKeys(new Set());
-    window.location.reload();
   };
-
 
   return (
     <>
@@ -101,12 +113,9 @@ export default function Editlink() {
                       setSelectedKeys(new Set(Array.from(keys as Set<React.Key>).map(String)))
                     }
                   >
-                    {
-                      user.link.map((link, index) => (
-                        <ListboxItem key={user.link[index]._id}>{user.link[index].name}</ListboxItem>
-                      )
-                      )
-                    }
+                    {user.link.map((link) => (
+                      <ListboxItem key={link._id}>{link.name}</ListboxItem>
+                    ))}
                   </Listbox>
                   <p className="text-small text-default-500">Selected value: {selectedValue}</p>
                 </div>
@@ -126,27 +135,51 @@ export default function Editlink() {
 
       <Modal isOpen={isEditModalOpen} onOpenChange={setEditModalOpen} className="max-w-md">
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader>Edit "{selectedValue}"</ModalHeader>
-              <ModalBody>
-                <div className="flex flex-col gap-4 px-4">
-                  <Input value={editName} onChange={(e) => setEditName(e.target.value)} label="Link Name" placeholder="Enter new link name" />
-                  <Input value={editLink} onChange={(e) => setEditLink(e.target.value)} label="Link URL" placeholder="Enter new link url" />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={handleEditModalClose}>
-                  Cancel
-                </Button>
-                <Button color="primary" onPress={handleEditModalClose}>
-                  Save
-                </Button>
-              </ModalFooter>
-            </>
-          )}
+          <Form
+            className="w-full justify-center items-center space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleEditModalClose();
+            }}
+          >
+            <ModalHeader>Edit "{selectedValue}"</ModalHeader>
+            <ModalBody>
+              <div className="flex flex-col gap-4 px-4">
+                <Input
+                  isRequired
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  label="Link Name"
+                  placeholder="Enter new link name"
+                />
+                <Input
+                  isRequired
+                  value={editLink}
+                  onChange={(e) => setEditLink(e.target.value)}
+                  label="Link URL"
+                  placeholder="Enter new link url"
+                />
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="danger"
+                variant="light"
+                onPress={() => {
+                  setEditModalOpen(false);
+                  setEditName("");
+                  setEditLink("");
+                }}
+              >
+                Cancel
+              </Button>
+              <Button color="primary" type="submit">
+                Save
+              </Button>
+            </ModalFooter>
+          </Form>
         </ModalContent>
       </Modal>
     </>
   );
-};
+}

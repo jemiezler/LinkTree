@@ -6,13 +6,27 @@ import { Input } from "@heroui/input";
 
 import DropdownSingleSelection from "../components/dropdown-single-selection";
 import UploadProfilePicture from "../components/UploadProfilePicture";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [user, setUser] = useState<User>({
+      name: "",
+      role: "",
+      image: "",
+      link: [],
+    });
+  
+    useEffect(() => {
+      fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link")
+        .then((res) => res.json())
+        .then((data) => setUser(data))
+        .catch((err) => console.error("Error fetching users:", err));
+    }, []);
   return (
     <div className="flex items-center justify-center">
     <div className="flex flex-col items-center justify-center gap-7 py-8 md:py-10 px-6 max-w-md bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl shadow-xl">
       <div className="flex gap-4 items-center">
-        <Avatar className="w-60 h-60" radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+        <Avatar className="w-60 h-60" radius="sm" src={user.image} />
       </div>
       <div className="grid grid-cols-1">
         <UploadProfilePicture/>

@@ -27,36 +27,18 @@ export default function Home() {
   const [themes, setThemes] = useState(false);
   console.log(themes);
   return (
-<<<<<<< HEAD
-    <div className="flex justify-center items-center ">
-      <div className="flex flex-col items-center  md:w-[400px] bg-[#0B0B0B] shadow-lg h-full my-10 mx-10 rounded-[20px]">
-        <div className="relative w-full h-[40%] bg-slate-400 flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
-          {user.image &&
-            <img src={user.image} className="w-full h-full object-cover" />
-          }
-
-          <div className="absolute flex flex-col  w-fit h-fit top-4 right-4  gap-4 justify-center items-center">
-            <Button isIconOnly aria-label="Like" className="flex w-[50px] h-[50px] bg-white rounded-full">
-
-            </Button>
-            <div className="flex w-[50px] h-[50px] bg-white rounded-full " />
-          </div>
-
-          <div className="absolute top-2  w-full h-full bg-gradient-custom">
-=======
     <div className="flex justify-center items-center">
       <div
         className={`flex flex-col items-center md:w-[400px] border-4 
-  ${themes ? "bg-white text-black border-slate-300 shadow-2xl shadow-slate-400/40" 
+        ${themes ? "bg-white text-black border-slate-300 shadow-2xl shadow-slate-400/40"
             : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"} 
-  h-full my-10 mx-10 rounded-[20px]`}
+        h-full my-10 mx-10 rounded-[20px]`}
       >
         <div className="relative w-full h-[40%] flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
           <img src={user.image} className="w-full h-full object-cover" />
           <div
             className={`absolute top-2  w-full h-full ${themes ? "bg-gradient-while" : "bg-gradient-dark"}`}
           >
->>>>>>> origin/backend
             <div className="flex flex-col justify-end items-center text-black w-full h-full py-5">
               <h1
                 className={`font-sans text-3xl font-bold ${themes ? "text-black" : "text-white"}`}
@@ -92,30 +74,6 @@ export default function Home() {
 
         {/* <div className="w-[325px] max-h-[300px] mx-auto grid grid-cols-2 gap-8 my-5 overflow-y-scroll scrollbar-hide"> */}
         <div className="w-[325px] mx-auto grid lg:grid-cols-2 grid-col gap-8 my-5  ">
-<<<<<<< HEAD
-          {user.link &&
-            user.link.map((link, index) => {
-              // Make sure getBrandVisual is defined or imported above this component
-              const { icon, gradient } = getBrandVisual(link.link);
-              return (
-                <div key={index}>
-                  <div className="bg-black rounded-xl mx-5 lg:mx-0">
-                    <a href={link.link} target="_blank" rel="noopener noreferrer">
-                      <Button
-                        href={link.link}
-                        variant="ghost"
-                        className="flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 border-2 hover:shadow-md transition duration-200 w-full h-full bg-transparent"
-                      >
-                        <span className="hidden lg:block text-4xl text-white">
-                          {icon}
-                        </span>
-                        <span className="text-xl font-normal text-white pt-1 lg:pt-2">
-                          {link.name}
-                        </span>
-                      </Button>
-                    </a>
-                  </div>
-=======
           {user.link.map((link, index) => {
             const { icon, gradient } = getBrandVisual(link.link);
             return (
@@ -138,10 +96,10 @@ export default function Home() {
                       </span>
                     </Button>
                   </a>
->>>>>>> origin/backend
                 </div>
-              );
-            })
+              </div>
+            );
+          })
           }
         </div>
 
