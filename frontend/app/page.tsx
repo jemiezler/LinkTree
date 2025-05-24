@@ -18,7 +18,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3001/user/6831769f6a564084f3764e5c/link")
+    fetch("http://localhost:3001/user/68302720fb7bed40c0d57cbe/link")
       .then((res) => res.json())
       .then((data) => setUser(data))
       .catch((err) => console.error("Error fetching users:", err));
@@ -30,12 +30,15 @@ export default function Home() {
     <div className="flex justify-center items-center">
       <div
         className={`flex flex-col items-center md:w-[400px] border-4 
-  ${themes ? "bg-white text-black border-slate-300 shadow-2xl shadow-slate-400/40" 
-            : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"} 
-  h-full my-10 mx-10 rounded-[20px]`}
+  ${
+    themes
+      ? "bg-white text-black border-white shadow-2xl shadow-white"
+      : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"
+  } 
+  h-screen my-10 mx-10 rounded-[20px]`}
       >
         <div className="relative w-full h-[40%] flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
-          <img src={user.image} className="w-full h-full object-cover" />
+          <img src={user.image} className="w-full h-screen object-cover" />
           <div
             className={`absolute top-2  w-full h-full ${themes ? "bg-gradient-while" : "bg-gradient-dark"}`}
           >
@@ -72,18 +75,21 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <div className="w-[325px] max-h-[300px] mx-auto grid grid-cols-2 gap-8 my-5 overflow-y-scroll scrollbar-hide"> */}
-        <div className="w-[325px] mx-auto grid lg:grid-cols-2 grid-col gap-8 my-5  ">
+        <div className="w-[325px] max-h-[300px] mx-auto grid grid-cols-2 gap-8 my-5 overflow-y-scroll scrollbar-hide">
+          {/* <div className="w-[325px] mx-auto grid lg:grid-cols-2 grid-col gap-8 my-5  "> */}
           {user.link.map((link, index) => {
             const { icon, gradient } = getBrandVisual(link.link);
             return (
               <div key={index}>
-                <div className={`${themes ? "bg-white" : "bg-black"} rounded-xl mx-5 lg:mx-0`}>
+                <div
+                  className={`${themes ? "bg-white" : "bg-black"} rounded-xl mx-5 lg:mx-0`}
+                >
                   <a href={link.link} target="_blank" rel="noopener noreferrer">
                     <Button
                       href={link.link}
                       variant="ghost"
-                      className={`flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 ${themes ? " border-2 border-black" : "border-2 border-white"}   hover:shadow-md transition duration-200 w-full h-full`}>
+                      className={`flex flex-row lg:flex-col items-start lg:items-center justify-center gap-3 rounded-xl py-4 lg:py-8 ${themes ? " border-2 border-black" : "border-2 border-white"}   hover:shadow-md transition duration-200 w-full h-full`}
+                    >
                       <span
                         className={` text-4xl absolute left-3 top-3  flex justify-center items-center  lg:static lg:left-auto lg:top-auto lg:translate-x-0  ${themes ? "text-black" : "text-white"}`}
                       >

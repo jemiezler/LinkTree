@@ -8,10 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <head />
-      <body
-        suppressHydrationWarning
+      <div
         className={clsx(
           fontSans.variable,
           "min-h-screen w-full bg-background bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat bg-fixed font-sans antialiased"
@@ -20,7 +17,6 @@ export default function RootLayout({
         <div className="w-full min-h-screen flex items-center justify-center p-4">
           {children}
         </div>
-      </body>
-    </html>
+      </div>
   );
 }
