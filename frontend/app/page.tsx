@@ -29,16 +29,13 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center">
       <div
-        className={`flex flex-col items-center md:w-[400px] border-4 
+        className={`flex flex-col items-center md:w-[400px] border-4
   ${
     themes
       ? "bg-white text-black border-white shadow-2xl shadow-white"
       : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"
-  } 
+  }
   h-screen my-10 mx-10 rounded-[20px]`}
-        ${themes ? "bg-white text-black border-slate-300 shadow-2xl shadow-slate-400/40"
-            : "bg-[#0B0B0B] text-white border-slate-950 shadow-2xl shadow-black/50"} 
-        h-full my-10 mx-10 rounded-[20px]`}
       >
         <div className="relative w-full h-[40%] flex flex-col justify-center items-center overflow-hidden rounded-t-[20px]">
           <img src={user.image} className="w-full h-screen object-cover" />

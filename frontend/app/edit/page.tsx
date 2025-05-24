@@ -2,64 +2,14 @@
 import { Link } from "@heroui/link";
 import { button as buttonStyles } from "@heroui/theme";
 import { Avatar, Button } from "@heroui/react";
-import { subtitle, title } from "@/components/primitives";
+import { useEffect, useState } from "react";
+import getBrandVisual from "../../utils/social.icon";
+
 import Addnewlink from "../edit/components/addnewlink";
 import Deletelink from "../edit/components/deletelink";
 import Editlink from "../edit/components/editlink";
-import { useEffect, useState } from "react";
 
-import getBrandVisual from "../../utils/social.icon";
-import getBrandVisual from "../../utils/social.icon";
-
-export const profile = {
-  name: "User",
-  link: [
-    {
-      name: "Youtube",
-      link: "https://www.youtube.com/",
-    },
-    {
-      name: "Facebook",
-      link: "https://www.facebook.com/",
-    },
-    {
-      name: "Instagram",
-      link: "https://www.instagram.com/",
-    },
-    {
-      name: "Github",
-      link: "https://www.github.com/",
-    },
-  ],
-};
-  name: "User",
-  link: [
-    {
-      name: "Youtube",
-      link: "https://www.youtube.com/",
-    },
-    {
-      name: "Facebook",
-      link: "https://www.facebook.com/",
-    },
-    {
-      name: "Instagram",
-      link: "https://www.instagram.com/",
-    },
-    {
-      name: "Github",
-      link: "https://www.github.com/",
-    },
-  ],
-};
-
-export default function Home() {
-  const [user, setUser] = useState<User>({
-    name: "",
-    role: "",
-    image: "",
-    link: [],
-  });
+export default function ProfilePage() {
   const [user, setUser] = useState<User>({
     name: "",
     role: "",
@@ -93,7 +43,7 @@ export default function Home() {
         </div>
         <div className="w-[220px] mx-auto grid grid-cols-2 gap-4">
           {user.link.map((link, index) => {
-            const { icon, gradient } = getBrandVisual(link.link);
+            const { icon } = getBrandVisual(link.link);
             return (
               <Link
                 key={index}

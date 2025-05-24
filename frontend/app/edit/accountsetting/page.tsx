@@ -7,7 +7,6 @@ import { Input } from "@heroui/input";
 import DropdownSingleSelection from "../components/dropdown-single-selection";
 import UploadProfilePicture from "../components/UploadProfilePicture";
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const [user, setUser] = useState<User>({
