@@ -6,6 +6,8 @@ import getBrandVisual from "../utils/social.icon";
 import { Link } from "@heroui/link";
 import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
+import { IoSunny } from "react-icons/io5";
+import { FaMoon } from "react-icons/fa";
 
 export default function Home() {
   const [user, setUser] = useState<User>({
@@ -31,10 +33,16 @@ export default function Home() {
           <img src={user.image} className="w-full h-full object-cover" />
 
           <div className="absolute flex flex-col  w-fit h-fit top-4 right-4  gap-4 justify-center items-center">
-               <Button isIconOnly aria-label="Like"  className="flex w-[50px] h-[50px] bg-white rounded-full"> 
-
-               </Button>
-            <div className="flex w-[50px] h-[50px] bg-white rounded-full " />
+            <Button
+              isIconOnly
+              aria-label="Themes"
+              variant="solid"
+              className="flex w-[50px] h-[50px] bg-white rounded-full"
+            >
+              <span>
+                <FaMoon size={32} />
+              </span>
+            </Button>
           </div>
 
           <div className="absolute top-2  w-full h-full bg-gradient-custom">

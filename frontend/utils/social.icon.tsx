@@ -10,6 +10,7 @@ import {
   FaDiscord,
   FaLink,
 } from "react-icons/fa";
+
 import React from "react";
 
 export default function getBrandVisual(url: string) {

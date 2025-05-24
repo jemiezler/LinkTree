@@ -74,6 +74,7 @@ export class UserController {
       role: user.role,
       image: user.image,
       link: Array.from(user.links).map((l: any) => ({
+        _id: l.id,
         name: l.name,
         link: l.link,
       })),
