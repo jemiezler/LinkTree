@@ -9,6 +9,7 @@ import Editlink from "../edit/components/editlink";
 import { useEffect, useState } from "react";
 
 import getBrandVisual from "../../utils/social.icon";
+import getBrandVisual from "../../utils/social.icon";
 
 export const profile = {
   name: "User",
@@ -31,8 +32,34 @@ export const profile = {
     },
   ],
 };
+  name: "User",
+  link: [
+    {
+      name: "Youtube",
+      link: "https://www.youtube.com/",
+    },
+    {
+      name: "Facebook",
+      link: "https://www.facebook.com/",
+    },
+    {
+      name: "Instagram",
+      link: "https://www.instagram.com/",
+    },
+    {
+      name: "Github",
+      link: "https://www.github.com/",
+    },
+  ],
+};
 
 export default function Home() {
+  const [user, setUser] = useState<User>({
+    name: "",
+    role: "",
+    image: "",
+    link: [],
+  });
   const [user, setUser] = useState<User>({
     name: "",
     role: "",
