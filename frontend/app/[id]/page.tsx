@@ -13,7 +13,7 @@ import {
 import React from 'react';
 import { FaEnvelope, FaFacebook, FaInstagram, FaMobile, FaPhone, FaTiktok } from 'react-icons/fa';
 
-import getBrandVisual from '../../../utils/social.icon';
+import getBrandVisual from '../../utils/social.icon';
 
 import Carousel from '@/components/Carousel';
 
