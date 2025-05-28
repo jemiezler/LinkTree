@@ -1,7 +1,10 @@
-import { fontSans } from "@/config/fonts";
-import "@/styles/globals.css";
-import clsx from "clsx";
-import { Providers } from "./provider";
+// eslint-disable-next-line import/order
+import { fontSans } from '@/config/fonts';
+
+import '@/styles/globals.css';
+import clsx from 'clsx';
+
+import { Providers } from './provider';
 
 export default function RootLayout({
   children,
@@ -10,15 +13,16 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <head />
       <body
         className={clsx(
           fontSans.variable,
-          "flex justify-center items-center bg-background bg-[url('/bg.png')] bg-center bg-fixed font-sans antialiased "
+          'bg-background bg-gradient-to-b from-black to-red-950 bg-center bg-fixed bg-cover font-sans antialiased w-screen h-screen overflow-hidden',
         )}
       >
-        <Providers >
-          {children}
+        <Providers>
+          <div className="w-screen h-screen flex items-center justify-center">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

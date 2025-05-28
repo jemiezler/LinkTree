@@ -19,3 +19,8 @@
   --primary-color: #ffffff ;
   --secondary-color: #000000;
 }
+
+.mask {
+  -webkit-mask: url('/icon.svg') center/contain no-repeat;
+  mask: url('/icon.svg') center/contain no-repeat;
+}
