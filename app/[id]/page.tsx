@@ -46,7 +46,7 @@ export default function UserPage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`/api/users?username=${encodeURIComponent(id)}`)
+    fetch(`/contacts/v2/api/users?username=${encodeURIComponent(id)}`)
       .then((res) => {
         if (!res.ok) throw new Error('User not found');
 
@@ -64,16 +64,16 @@ export default function UserPage() {
   }
 
   const images = [
-    '/ae/IMG_9869.JPG',
-    '/ae/IMG_6789.jpeg',
-    '/ae/IMG_0259.JPG',
-    '/ae/IMG_9872.JPG',
-    '/ae/IMG_0263.JPG',
-    '/ae/IMG_6791.jpeg',
-    '/ae/IMG_0269.JPG',
-    '/ae/IMG_0271.JPG',
-    '/ae/IMG_0276.JPG',
-    '/ae/IMG_9946.jpg',
+    '/contacts/ae/IMG_9869.JPG',
+    '/contacts/ae/IMG_6789.jpeg',
+    '/contacts/ae/IMG_0259.JPG',
+    '/contacts/ae/IMG_9872.JPG',
+    '/contacts/ae/IMG_0263.JPG',
+    '/contacts/ae/IMG_6791.jpeg',
+    '/contacts/ae/IMG_0269.JPG',
+    '/contacts/ae/IMG_0271.JPG',
+    '/contacts/ae/IMG_0276.JPG',
+    '/contacts/ae/IMG_9946.jpg',
   ];
 
   const Activities = [
@@ -109,11 +109,11 @@ export default function UserPage() {
 
   return (
     <div
-      className="w-full h-full max-w-sm backdrop-blur-md shadow-lg md:h-[95%] md:radius-lg md:shadow-2xl"
-      style={{ backgroundImage: 'url(/background.jpg)' }}
+      className="w-full h-full max-w-[650px] overflow-x-none backdrop-blur-md shadow-lg md:h-[95%] md:radius-lg md:shadow-2xl"
+      style={{ backgroundImage: 'url(/contacts/background.jpg)' }}
     >
       <Card
-        className="w-full h-full"
+        className="w-full h-full pt-4"
         radius="none"
         style={{
           backgroundColor: 'rgba(0, 0, 0, 0.6)',
